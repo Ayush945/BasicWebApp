@@ -1,27 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-function App() {
-  const [datas, setDatas] = useState([]);
-  useEffect(() => {
-    axios.get('/api/get-items')
-      .then((response) => {
-        setDatas(response.data)
-      })
+import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import GetItem from './pages/GetItem'
+import AddItem from './pages/AddItem'
+import DeleteItem from './pages/DeleteItem'
+import HomePage from './pages/HomePage'
 
-  }).catch((error) => {
-    console.log(error)
-  })
+function App() {
   return (
     <>
-      <h1>Data are:</h1>
-      {
-        datas.map((data) => (
-          <div key={data.item_id}>{data.item_id}
-            <h3>{data.item_name}</h3>
-            <h3>{data.item_price}</h3>
-          </div>
-        ))
-      }
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/get-item' element={<GetItem />} />
+          <Route path='/add-item' element={<AddItem />} />
+          <Route path='/delete-item' element={<DeleteItem />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
